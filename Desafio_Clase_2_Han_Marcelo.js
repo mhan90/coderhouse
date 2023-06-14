@@ -33,10 +33,10 @@ class ProductManager {
 }
 
 // Test
-const p1 = new ProductManager;
-console.log("Lista de productos: ", p1.getProducts());
-p1.addProduct("hola", "mundo", 1, "url", 5, 1);
-console.log("Lista de productos: ", p1.getProducts());
-p1.addProduct("hola", "mundo", 1, "url", 5, 1);
-console.log(p1.getProductById(1));
-console.log(p1.getProductById(2));
+// const p1 = new ProductManager;
+// console.log("Lista de productos: ", p1.getProducts());
+// p1.addProduct("hola", "mundo", 1, "url", 5, 1);
+// console.log("Lista de productos: ", p1.getProducts());
+// p1.addProduct("hola", "mundo", 1, "url", 5, 1);
+// console.log(p1.getProductById(1));
+// console.log(p1.getProductById(2));
