@@ -1,12 +1,12 @@
 class ProductManager {
-    
-    constructor () {
+
+    constructor() {
         this.product = [];
     }
 
     addProduct = (title, description, price, thumbnail, code, stock) => {
-    
-        if(!this.product.find( prod => prod.code == code )) {
+
+        if (!this.product.find(prod => prod.code == code)) {
             const newProduct = {
                 id: this.product.length + 1,
                 title,
@@ -17,22 +17,22 @@ class ProductManager {
                 stock
             };
 
-             this.product.push(newProduct);    
+            this.product.push(newProduct);
         } else
             console.log(`ERROR: Product with code ${code} already exists.`);
 
     }
 
     getProducts = () => this.product;
-    
+
     getProductById = (id) => {
-        const productById = this.product.find( prod => prod.id == id );
-        return  productById ? productById : "Not found";
+        const productById = this.product.find(prod => prod.id == id);
+        return productById ? productById : "Not found";
     }
 
 }
 
-// Test
+//* Test
 // const p1 = new ProductManager;
 // console.log("Lista de productos: ", p1.getProducts());
 // p1.addProduct("hola", "mundo", 1, "url", 5, 1);
