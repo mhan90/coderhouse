@@ -25,7 +25,7 @@ class ProductManager {
     }
 
     /**
-     * 
+     * Adds a new product to file.
      * @param { { title: string, description: string, price: int, thumbnail, code: int, stock: int } } param0 
      */
     addProduct = async ({ title, description, price, thumbnail, code, stock }) => {
@@ -122,3 +122,5 @@ class ProductManager {
         }
     }
 }
+
+export { ProductManager };
