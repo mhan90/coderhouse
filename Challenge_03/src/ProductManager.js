@@ -1,11 +1,15 @@
 import fs from "fs";
 
-class ProductManager {
+export default class ProductManager {
 
     constructor(path) {
         this._path = path;
         fs.writeFile(path, JSON.stringify([]), { flag: "wx" }, (error) => {
-            if (error) console.log("File already exists.");
+            if (error) {
+                console.log(`Opening file ${path}.`);
+            } else {
+                console.log(`Creating a new file at ${path}.`);
+            }
         });
     }
 
@@ -26,7 +30,7 @@ class ProductManager {
 
     /**
      * Adds a new product to file.
-     * @param { { title: string, description: string, price: int, thumbnail, code: int, stock: int } } param0 
+     * @param { { title: string, description: string, price: integer, thumbnail, code: integer, stock: integer } } param0 
      */
     addProduct = async ({ title, description, price, thumbnail, code, stock }) => {
         try {
@@ -66,22 +70,23 @@ class ProductManager {
 
     /**
      * 
-     * @param {int} id 
+     * @param {integer} id 
      * @returns an object with the requested product details
      */
     getProductById = async (id) => {
         try {
             const products = await this.#getProductsFromFile();
             const product = products.find(product => product.id == id);
-            return product ? product : "Not found";
+            return product ? product : { error: "Not found" };
         } catch (error) {
             console.error(error);
         }
     }
 
     /**
-     * @param {int} id
-     * @param { { title: string, description: string, price: int, thumbnail, code: int, stock: int } } data
+     * Updates the details of the specified product
+     * @param {integer} id
+     * @param { { title: string, description: string, price: integer, thumbnail, code: integer, stock: integer } } data
      */
     updateProduct = async (id, data) => {
         try {
@@ -104,7 +109,7 @@ class ProductManager {
 
     /**
      * 
-     * @param {int} id 
+     * @param {integer} id 
      */
     deleteProduct = async (id) => {
         try {
@@ -122,5 +127,3 @@ class ProductManager {
         }
     }
 }
-
-export { ProductManager };
