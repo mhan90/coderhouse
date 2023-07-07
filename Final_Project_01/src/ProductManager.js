@@ -1,14 +1,17 @@
 import fs from "fs";
 
 export default class ProductManager {
-
-    constructor(path) {
-        this._path = path;
-        fs.writeFile(path, JSON.stringify([]), { flag: "wx" }, (error) => {
+    /**
+     * String with file name.
+     * @param {string} file name
+     */
+    constructor(file) {
+        this._path = `./db/${file}.json`;
+        fs.writeFile(this._path, JSON.stringify([]), { flag: "wx" }, (error) => {
             if (error) {
-                console.log(`Opening file ${path}.`);
+                console.log(`Opening file ${this._path}.`);
             } else {
-                console.log(`Creating a new file at ${path}.`);
+                console.log(`Creating a new file at ${this._path}.`);
             }
         });
     }
@@ -24,7 +27,7 @@ export default class ProductManager {
         return JSON.parse(await fs.promises.readFile(this._path, "utf-8"));
     }
 
-    #setProductsToFile = async (products) => {
+    #saveProductsToFile = async (products) => {
         await fs.promises.writeFile(this._path, JSON.stringify(products));
     }
 
@@ -47,12 +50,14 @@ export default class ProductManager {
                 };
 
                 products.push(newProduct);
-                await this.#setProductsToFile(products);
+                await this.#saveProductsToFile(products);
+                return { msg: "Product successfuly saved." };
             } else {
                 console.log(`Failed adding product. Code ${code} already exists.`);
             }
         } catch (error) {
             console.error(error);
+            return error;
         }
     }
 
@@ -65,6 +70,7 @@ export default class ProductManager {
             return await this.#getProductsFromFile();
         } catch (error) {
             console.error(error);
+            return error;
         }
     }
 
@@ -80,13 +86,14 @@ export default class ProductManager {
             return product ? product : { error: "Not found" };
         } catch (error) {
             console.error(error);
+            return error;
         }
     }
 
     /**
      * Updates the details of the specified product
      * @param {integer} id
-     * @param { { title: string, description: string, price: integer, thumbnail, code: integer, stock: integer } } data
+     * @param { { title: string, description: string, price: integer, thumbnail: string, code: integer, stock: integer } } data
      */
     updateProduct = async (id, data) => {
         try {
@@ -97,14 +104,17 @@ export default class ProductManager {
                 //     products[prodIdx][key] = value;
                 // }
                 products[prodIdx] = { ...products[prodIdx], ...data }
-                await this.#setProductsToFile(products);
-                console.log(`Product ${id} updated.`)
+                await this.#saveProductsToFile(products);
+                let msg = { msg: `Product ${id} updated.` };
 
             } else {
-                console.log(`There is no such product with id ${id}.`);
+                let msg = { msg: `There is no such product with id ${id}.` }
             }
+            console.log(msg);
+            return msg;
         } catch (error) {
             console.error(error);
+            return error;
         }
     }
 
@@ -117,18 +127,21 @@ export default class ProductManager {
             const products = await this.#getProductsFromFile();
 
             // const newProducts = products.filter(product => product.id != id);
-            // await this.#setProductsToFile(newProducts);
+            // await this.#saveProductsToFile(newProducts);
 
             const prodIdx = products.findIndex(product => product.id == id);
             if (prodIdx != -1) {
                 products.splice(prodIdx, 1);
-                await this.#setProductsToFile(products);
-                console.log(`Product ${id} deleted.`)
+                await this.#saveProductsToFile(products);
+                let msg = { msg: `Product ${id} deleted.` };
             } else {
-                console.log(`There is no such product with id ${id}.`);
+                let msg = { msg: `There is no such product with id ${id}.` }
             }
+            console.log(msg);
+            return msg;
         } catch (error) {
             console.error(error);
+            return error;
         }
     }
 }
