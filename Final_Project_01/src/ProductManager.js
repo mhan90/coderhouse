@@ -33,9 +33,9 @@ export default class ProductManager {
 
     /**
      * Adds a new product to file.
-     * @param { { title: string, description: string, price: integer, thumbnail, code: integer, stock: integer, category: string } } param0 
+     * @param { { title: string, description: string, price: number, thumbnails: array , code: string, stock: number, category: string, status: boolean  } } param0 
      */
-    addProduct = async ({ title, description, price, thumbnail = "", code, stock, category }) => {
+    addProduct = async ({ title, description, price, thumbnails = [], code, stock, category, status = true }) => {
         try {
             const products = await this.#getProductsFromFile();
             if (!products.find(product => product.code == code)) {
@@ -44,10 +44,11 @@ export default class ProductManager {
                     title,
                     description,
                     price,
-                    thumbnail,
+                    thumbnails,
                     code,
                     stock,
-                    category
+                    category,
+                    status
                 };
 
                 products.push(newProduct);
@@ -77,7 +78,7 @@ export default class ProductManager {
 
     /**
      * 
-     * @param {integer} id 
+     * @param {number} id 
      * @returns an object with the requested product details
      */
     getProductById = async (id) => {
@@ -93,8 +94,8 @@ export default class ProductManager {
 
     /**
      * Updates the details of the specified product
-     * @param {integer} id
-     * @param { { title: string, description: string, price: integer, thumbnail: string, code: integer, stock: integer } } data
+     * @param {number} id
+     * @param { { title: string, description: string, price: number, thumbnails: array, code: string, stock: number, category: string, status: boolean } } data
      */
     updateProduct = async (id, data) => {
         try {
@@ -121,7 +122,7 @@ export default class ProductManager {
 
     /**
      * 
-     * @param {integer} id 
+     * @param {number} id 
      */
     deleteProduct = async (id) => {
         try {

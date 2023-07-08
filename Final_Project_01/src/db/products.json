@@ -206,5 +206,136 @@
         "code": "9999990",
         "stock": "10",
         "category": "tst"
+    },
+    {
+        "id": 24,
+        "title": "silla",
+        "description": "test",
+        "price": "1",
+        "thumbnail": "",
+        "code": "9999991",
+        "stock": "10",
+        "category": "tst"
+    },
+    {
+        "id": 25,
+        "title": "silla con thumb",
+        "description": "test",
+        "price": "1",
+        "thumbnail": "salta-nat-urb-scaled.jpg",
+        "code": "9999992",
+        "stock": "10",
+        "category": "tst"
+    },
+    {
+        "id": 26,
+        "title": "silla con thumb 2",
+        "description": "test",
+        "price": "1",
+        "thumbnail": "",
+        "code": "9999993",
+        "stock": "10",
+        "category": "tst"
+    },
+    {
+        "id": 27,
+        "title": "silla con thumb 3",
+        "description": "test",
+        "price": "1",
+        "thumbnail": "",
+        "code": "9999994",
+        "stock": "10",
+        "category": "tst"
+    },
+    {
+        "id": 28,
+        "title": "silla con thumb 4",
+        "description": "test",
+        "price": "1",
+        "thumbnail": "",
+        "code": "9999995",
+        "stock": "10",
+        "category": "tst",
+        "status": "false"
+    },
+    {
+        "id": 29,
+        "title": "silla con thumb 5",
+        "description": "test",
+        "price": "1",
+        "thumbnail": "",
+        "code": "9999996",
+        "stock": "10",
+        "category": "tst",
+        "status": true
+    },
+    {
+        "id": 30,
+        "title": "silla con thumb 6",
+        "description": "test",
+        "price": "1",
+        "thumbnail": "",
+        "code": "9999997",
+        "stock": "10",
+        "category": "tst",
+        "status": "false"
+    },
+    {
+        "id": 31,
+        "title": "silla con thumb 7",
+        "description": "test",
+        "price": 1,
+        "thumbnail": "",
+        "code": "9999998",
+        "stock": false,
+        "category": "tst",
+        "status": "false"
+    },
+    {
+        "id": 32,
+        "title": "silla con thumb 8",
+        "description": "test",
+        "price": 1,
+        "thumbnail": "",
+        "code": "90001",
+        "stock": 10,
+        "category": "tst",
+        "status": false
+    },
+    {
+        "id": 33,
+        "title": "silla con thumb 9",
+        "description": "test",
+        "price": 1,
+        "thumbnails": "",
+        "code": "90002",
+        "stock": 10,
+        "category": "tst",
+        "status": true
+    },
+    {
+        "id": 34,
+        "title": "silla con thumb 910",
+        "description": "test",
+        "price": 1,
+        "thumbnails": "",
+        "code": "900010",
+        "stock": 10,
+        "category": "tst",
+        "status": true
+    },
+    {
+        "id": 35,
+        "title": "silla con thumb 11",
+        "description": "test",
+        "price": 1,
+        "thumbnails": [
+            "/mnt/c/Users/hminh/Documents/coder/Final_Project_01/src/public/img/salta-nat-urb-scaled.jpg",
+            "/mnt/c/Users/hminh/Documents/coder/Final_Project_01/src/public/img/salta-nat-urb-scaled - Copy.jpg"
+        ],
+        "code": "900011",
+        "stock": 10,
+        "category": "tst",
+        "status": true
     }
 ]
