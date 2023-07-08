@@ -186,5 +186,25 @@
         "thumbnail": null,
         "code": 466,
         "stock": 10
+    },
+    {
+        "id": 22,
+        "title": "postman",
+        "description": "test",
+        "price": "1",
+        "thumbnail": "Screenshot 2023-04-03 151539.png",
+        "code": "999999",
+        "stock": "10",
+        "category": "tst"
+    },
+    {
+        "id": 23,
+        "title": "postman",
+        "description": "test",
+        "price": "1",
+        "thumbnail": null,
+        "code": "9999990",
+        "stock": "10",
+        "category": "tst"
     }
 ]

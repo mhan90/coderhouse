@@ -33,9 +33,9 @@ export default class ProductManager {
 
     /**
      * Adds a new product to file.
-     * @param { { title: string, description: string, price: integer, thumbnail, code: integer, stock: integer } } param0 
+     * @param { { title: string, description: string, price: integer, thumbnail, code: integer, stock: integer, category: string } } param0 
      */
-    addProduct = async ({ title, description, price, thumbnail, code, stock }) => {
+    addProduct = async ({ title, description, price, thumbnail = "", code, stock, category }) => {
         try {
             const products = await this.#getProductsFromFile();
             if (!products.find(product => product.code == code)) {
@@ -46,14 +46,15 @@ export default class ProductManager {
                     price,
                     thumbnail,
                     code,
-                    stock
+                    stock,
+                    category
                 };
 
                 products.push(newProduct);
                 await this.#saveProductsToFile(products);
-                return { msg: "Product successfuly saved." };
+                return { msg: "Product successfuly added." };
             } else {
-                console.log(`Failed adding product. Code ${code} already exists.`);
+                return { error: `Failed adding product. Code ${code} already exists.` };
             }
         } catch (error) {
             console.error(error);
