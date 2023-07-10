@@ -35,7 +35,7 @@ export default class ProductManager {
      * Adds a new product to file.
      * @param { { title: string, description: string, price: number, thumbnails: array , code: string, stock: number, category: string, status: boolean  } } param0 
      */
-    addProduct = async ({ title, description, price, thumbnails = [], code, stock, category, status = true }) => {
+    addProduct = async ({ title, description, price, thumbnails = [], code, stock, category, status = "true" }) => {
         try {
             const products = await this.#getProductsFromFile();
             if (!products.find(product => product.code == code)) {
@@ -43,52 +43,51 @@ export default class ProductManager {
                     id: products.length == 0 ? 1 : products[products.length - 1].id + 1,
                     title,
                     description,
-                    price,
+                    price: Number(price),
                     thumbnails,
                     code,
-                    stock,
+                    stock: Number(stock),
                     category,
-                    status
+                    status: (status.toLowerCase() === "true") //parse to boolean
                 };
 
                 products.push(newProduct);
                 await this.#saveProductsToFile(products);
-                return { msg: "Product successfuly added." };
+                return { status: "success", payload: { id: newProduct.id } };
             } else {
-                return { error: `Failed adding product. Code ${code} already exists.` };
+                return { status: "error", error: `product with code ${code} already exists` };
             }
-        } catch (error) {
-            console.error(error);
-            return error;
+        } catch (e) {
+            console.error(e);
+            throw e;
         }
     }
 
     /**
-     * 
      * @returns an array of objects with all products
      */
     getProducts = async () => {
         try {
             return await this.#getProductsFromFile();
-        } catch (error) {
-            console.error(error);
-            return error;
+        } catch (e) {
+            console.error(e);
+            throw e;
         }
     }
 
     /**
      * 
-     * @param {number} id 
+     * @param {string} id 
      * @returns an object with the requested product details
      */
     getProductById = async (id) => {
         try {
             const products = await this.#getProductsFromFile();
             const product = products.find(product => product.id == id);
-            return product ? product : { error: "Not found" };
-        } catch (error) {
-            console.error(error);
-            return error;
+            return product ? { status: "success", payload: product } : { status: "error", error: "not found" };
+        } catch (e) {
+            console.error(e);
+            throw e;
         }
     }
 
@@ -100,23 +99,20 @@ export default class ProductManager {
     updateProduct = async (id, data) => {
         try {
             const products = await this.#getProductsFromFile();
-            const prodIdx = products.findIndex(product => product.id == id);
-            if (prodIdx != -1) {
-                // for (const [key, value] of Object.entries(data)) {
-                //     products[prodIdx][key] = value;
-                // }
-                products[prodIdx] = { ...products[prodIdx], ...data }
+            const idx = products.findIndex(product => product.id == id);
+            if (idx != -1) {
+                if (data.price) data.price = Number(data.price);
+                if (data.stock) data.stock = Number(data.stock);
+                if (data.status) data.status = (data.status.toLowerCase() === "true");
+                products[idx] = { ...products[idx], ...data }
                 await this.#saveProductsToFile(products);
-                let msg = { msg: `Product ${id} updated.` };
-
+                return { status: "sucess" }
             } else {
-                let msg = { msg: `There is no such product with id ${id}.` }
+                return { status: "error", error: `not found` }
             }
-            console.log(msg);
-            return msg;
-        } catch (error) {
-            console.error(error);
-            return error;
+        } catch (e) {
+            console.error(e);
+            return e;
         }
     }
 
@@ -127,23 +123,20 @@ export default class ProductManager {
     deleteProduct = async (id) => {
         try {
             const products = await this.#getProductsFromFile();
-
             // const newProducts = products.filter(product => product.id != id);
             // await this.#saveProductsToFile(newProducts);
-
-            const prodIdx = products.findIndex(product => product.id == id);
-            if (prodIdx != -1) {
-                products.splice(prodIdx, 1);
+            let response = { status: "sucess" };
+            const idx = products.findIndex(product => product.id == id);
+            if (idx != -1) {
+                products.splice(idx, 1);
                 await this.#saveProductsToFile(products);
-                let msg = { msg: `Product ${id} deleted.` };
             } else {
-                let msg = { msg: `There is no such product with id ${id}.` }
+                response = { status: "error", error: "not found" }
             }
-            console.log(msg);
-            return msg;
-        } catch (error) {
-            console.error(error);
-            return error;
+            return response;
+        } catch (e) {
+            console.error(e);
+            throw e;
         }
     }
 }

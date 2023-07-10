@@ -317,12 +317,12 @@
         "id": 34,
         "title": "silla con thumb 910",
         "description": "test",
-        "price": 1,
-        "thumbnails": "",
+        "price": 198989,
+        "thumbnails": [],
         "code": "900010",
-        "stock": 10,
+        "stock": 100001,
         "category": "tst",
-        "status": true
+        "status": false
     },
     {
         "id": 35,
@@ -337,5 +337,19 @@
         "stock": 10,
         "category": "tst",
         "status": true
+    },
+    {
+        "id": 37,
+        "title": "Silla Con Thumb 13",
+        "description": "test",
+        "price": 1,
+        "thumbnails": [
+            "/mnt/c/Users/hminh/Documents/coder/Final_Project_01/src/public/img/salta-nat-urb-scaled - Copy.jpg",
+            "/mnt/c/Users/hminh/Documents/coder/Final_Project_01/src/public/img/salta-nat-urb-scaled.jpg"
+        ],
+        "code": "900013",
+        "stock": 10,
+        "category": "tst",
+        "status": false
     }
 ]
