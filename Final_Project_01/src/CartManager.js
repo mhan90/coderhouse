@@ -106,4 +106,48 @@ export default class CartManager {
             throw e;
         }
     }
+
+    /**
+     *  Deletes the specified cart.
+     * @param {string} id 
+     */
+    deleteCart = async (id) => {
+        try {
+            const carts = await this.#getCartsFromFile();
+            const idx = carts.findIndex(cart => cart.id == id);
+            if (idx != -1) {
+                carts.splice(idx, 1);
+                await this.#saveCartsToFile(carts);
+                return { status: "success" };
+            } else {
+                return { status: "error", error: "not found" }
+            }
+        } catch (e) {
+            console.error(e);
+            throw e;
+        }
+    }
+
+    /**
+     *  Deletes the specified product from cart.
+     * @param {string} cid
+     * @param {string} pid  
+     */
+    deleteProductFromCart = async (cid, pid) => {
+        try {
+            const carts = await this.#getCartsFromFile();
+            const cIdx = carts.findIndex(cart => cart.id == cid);
+            if (cIdx != -1) {
+                const pIdx = carts[cIdx].products.findIndex(_product => _product.product == pid);
+                carts[cIdx].products.splice(pIdx, 1);
+                await this.#saveCartsToFile(carts);
+                return { status: "success" };
+            } else {
+                return { status: "error", error: "cart not found" }
+            }
+        } catch (e) {
+            console.error(e);
+            throw e;
+        }
+    }
 }

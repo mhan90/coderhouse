@@ -351,5 +351,16 @@
         "stock": 10,
         "category": "tst",
         "status": false
+    },
+    {
+        "id": 38,
+        "title": "silla con thumb 77777",
+        "description": "test",
+        "price": 1,
+        "thumbnails": [],
+        "code": "77777777",
+        "stock": 10,
+        "category": "tst",
+        "status": true
     }
 ]

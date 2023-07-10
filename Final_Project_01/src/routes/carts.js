@@ -30,4 +30,22 @@ cartsRouter.post("/:cid/product/:pid", async (req, res) => {
     }
 });
 
+cartsRouter.delete("/:cid", async (req, res) => {
+    try {
+        const { cid } = req.params;
+        res.send(await cManager.deleteCart(cid));
+    } catch (e) {
+        res.status(500).send({ status: "error while deleting cart", error: e });
+    }
+});
+
+cartsRouter.delete("/:cid/product/:pid", async (req, res) => {
+    try {
+        const { cid, pid } = req.params;
+        res.send(await cManager.deleteProductFromCart(cid, pid));
+    } catch (e) {
+        res.status(500).send({ status: "error while deleting product from cart", error: e });
+    }
+});
+
 export default cartsRouter;

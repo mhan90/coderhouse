@@ -64,7 +64,7 @@ export default class ProductManager {
     }
 
     /**
-     * @returns an array of objects with all products
+     * @returns an array of objects with all products.
      */
     getProducts = async () => {
         try {
@@ -78,7 +78,7 @@ export default class ProductManager {
     /**
      * 
      * @param {string} id 
-     * @returns an object with the requested product details
+     * @returns an object with the requested product details.
      */
     getProductById = async (id) => {
         try {
@@ -92,7 +92,7 @@ export default class ProductManager {
     }
 
     /**
-     * Updates the details of the specified product
+     * Updates the details of the specified product.
      * @param {number} id
      * @param { { title: string, description: string, price: number, thumbnails: array, code: string, stock: number, category: string, status: boolean } } data
      */
@@ -117,7 +117,7 @@ export default class ProductManager {
     }
 
     /**
-     * 
+     * Deletes the specified product.
      * @param {number} id 
      */
     deleteProduct = async (id) => {
@@ -125,15 +125,14 @@ export default class ProductManager {
             const products = await this.#getProductsFromFile();
             // const newProducts = products.filter(product => product.id != id);
             // await this.#saveProductsToFile(newProducts);
-            let response = { status: "sucess" };
             const idx = products.findIndex(product => product.id == id);
             if (idx != -1) {
                 products.splice(idx, 1);
                 await this.#saveProductsToFile(products);
+                return { status: "success" };
             } else {
-                response = { status: "error", error: "not found" }
+                return { status: "error", error: "not found" }
             }
-            return response;
         } catch (e) {
             console.error(e);
             throw e;
